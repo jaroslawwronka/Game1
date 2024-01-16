@@ -24,9 +24,6 @@ class GameViewController: UIViewController {
     
     var playerName : String = ""
     var lastValue = "o"
-    //var playerChoice: [Box] = []
-    //var computerChoice: [Box] = []
-    //var endGame : Int = 0
     var tabCC : [[String]] = [["_","_","_"],["_","_","_"],["_","_","_"]]
     var posX : Int = 0
     var posY : Int = 0
@@ -49,39 +46,27 @@ class GameViewController: UIViewController {
         createTap(on: Box7, type: .seven)
         createTap(on: Box8, type: .eight)
         createTap(on: Box9, type: .nine)
-        
+
     }
     
     func createTap(on imageView:UIImageView, type box: Box){
-        
-        
-            
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+        {
             let tap = UITapGestureRecognizer(target: self, action: #selector (self.boxClicked(_:)))
             tap.name = box.rawValue
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(tap)
-            
-      
-        
+        }
     }
     
     @objc func boxClicked(_ sender: UITapGestureRecognizer) {
         
-        
-        if checkInc <= 8 {
+        if ((checkInc <= 8)) {
+            //isTaped = true
             let selectedBox = getBox(from: sender.name ?? "")
             if boxAvailable() == true {
-                
-                
-                
-                
                 selectedBox.image = #imageLiteral(resourceName: "cross")
                 lastValue = "x"
-                //guard selectedBox.image == nil else { return }
-              
-                //player
-                
                 tabCC[posX][posY] = lastValue
                 checkInc = checkInc + 1
                 print(tabCC[0][0] + " " + tabCC[1][0] + " " + tabCC[2][0])
@@ -96,30 +81,23 @@ class GameViewController: UIViewController {
                     }
                     return
                 }
+                computerPlay()
             }
         }
-        computerPlay()
     }
-    
-    
+        
     func computerPlay(){
         
             if checkInc <= 8 {
                 
-              
-               //     repeat {
-               //        posX = Int.random(in: 0 ..< 3)
-               //         posY = Int.random(in: 0 ..< 3)
-               //     } while !(boxAvailable()==true)
-                   /*(posX, posY) = */ //computerThink()
-               
-                
+                //random position computer choice
                 repeat {
                     posX = Int.random(in: 0 ..< 3)
                     posY = Int.random(in: 0 ..< 3)
                     
                 } while !(boxAvailable()==true)
                 
+                //defense position computer choise
                 if ((tabCC[0][0]=="x") && (tabCC[1][0]=="x") && (tabCC[2][0]=="_")) { if boxAvailable() == true {posX=2; posY=0 } }
                 if ((tabCC[0][0]=="x") && (tabCC[2][0]=="x") && (tabCC[1][0]=="_")) { if boxAvailable() == true {posX=1; posY=0 } }
                 if ((tabCC[1][0]=="x") && (tabCC[2][0]=="x") && (tabCC[0][0]=="_")) { if boxAvailable() == true {posX=0; posY=0 } }
@@ -152,17 +130,43 @@ class GameViewController: UIViewController {
                 if ((tabCC[2][0]=="x") && (tabCC[0][2]=="x") && (tabCC[1][1]=="_")) { if boxAvailable() == true {posX=1; posY=1 } }
                 if ((tabCC[1][1]=="x") && (tabCC[0][2]=="x") && (tabCC[2][0]=="_")) { if boxAvailable() == true {posX=2; posY=0 } }
                 
+                //offensive position computer choice
+                if ((tabCC[0][0]=="o") && (tabCC[1][0]=="o") && (tabCC[2][0]=="_")) { if boxAvailable() == true {posX=2; posY=0 } }
+                if ((tabCC[0][0]=="o") && (tabCC[2][0]=="o") && (tabCC[1][0]=="_")) { if boxAvailable() == true {posX=1; posY=0 } }
+                if ((tabCC[1][0]=="o") && (tabCC[2][0]=="o") && (tabCC[0][0]=="_")) { if boxAvailable() == true {posX=0; posY=0 } }
                 
+                if ((tabCC[0][1]=="o") && (tabCC[1][1]=="o") && (tabCC[2][1]=="_")) { if boxAvailable() == true {posX=2; posY=1 } }
+                if ((tabCC[0][1]=="o") && (tabCC[2][1]=="o") && (tabCC[1][1]=="_")) { if boxAvailable() == true {posX=1; posY=1 } }
+                if ((tabCC[1][1]=="o") && (tabCC[2][1]=="o") && (tabCC[0][1]=="_")) { if boxAvailable() == true {posX=0; posY=1 } }
                 
+                if ((tabCC[0][2]=="o") && (tabCC[1][2]=="o") && (tabCC[2][2]=="_")) { if boxAvailable() == true {posX=2; posY=2 } }
+                if ((tabCC[0][2]=="o") && (tabCC[2][2]=="o") && (tabCC[1][2]=="_")) { if boxAvailable() == true {posX=1; posY=2 } }
+                if ((tabCC[1][2]=="o") && (tabCC[2][2]=="o") && (tabCC[0][2]=="_")) { if boxAvailable() == true {posX=0; posY=2 } }
                 
+                if ((tabCC[0][0]=="o") && (tabCC[0][1]=="o") && (tabCC[0][2]=="_")) { if boxAvailable() == true {posX=0; posY=2 } }
+                if ((tabCC[0][1]=="o") && (tabCC[0][2]=="o") && (tabCC[0][0]=="_")) { if boxAvailable() == true {posX=0; posY=0 } }
+                if ((tabCC[0][0]=="o") && (tabCC[0][2]=="o") && (tabCC[0][1]=="_")) { if boxAvailable() == true {posX=0; posY=1 } }
                 
+                if ((tabCC[1][0]=="o") && (tabCC[1][1]=="o") && (tabCC[1][2]=="_")) { if boxAvailable() == true {posX=1; posY=2 } }
+                if ((tabCC[1][1]=="o") && (tabCC[1][2]=="o") && (tabCC[1][0]=="_")) { if boxAvailable() == true {posX=1; posY=0 } }
+                if ((tabCC[1][0]=="o") && (tabCC[1][2]=="o") && (tabCC[1][1]=="_")) { if boxAvailable() == true {posX=1; posY=1 } }
                 
+                if ((tabCC[2][0]=="o") && (tabCC[2][1]=="o") && (tabCC[2][2]=="_")) { if boxAvailable() == true {posX=2; posY=2 } }
+                if ((tabCC[2][1]=="o") && (tabCC[2][2]=="o") && (tabCC[2][0]=="_")) { if boxAvailable() == true {posX=2; posY=0 } }
+                if ((tabCC[2][0]=="o") && (tabCC[2][2]=="o") && (tabCC[2][1]=="_")) { if boxAvailable() == true {posX=2; posY=1 } }
                 
-                    let selectedBox : UIImageView
-                    selectedBox = boxNumber()
-                    selectedBox.image = #imageLiteral(resourceName: "circle.png")
-                    lastValue = "o"
-                    //guard selectedBox.image == nil else { return }
+                if ((tabCC[0][0]=="o") && (tabCC[1][1]=="o") && (tabCC[2][2]=="_")) { if boxAvailable() == true {posX=2; posY=2 } }
+                if ((tabCC[0][0]=="o") && (tabCC[2][2]=="o") && (tabCC[1][1]=="_")) { if boxAvailable() == true {posX=1; posY=1 } }
+                if ((tabCC[1][1]=="o") && (tabCC[2][2]=="o") && (tabCC[0][0]=="_")) { if boxAvailable() == true {posX=0; posY=0 } }
+                
+                if ((tabCC[2][0]=="o") && (tabCC[1][1]=="o") && (tabCC[0][2]=="_")) { if boxAvailable() == true {posX=0; posY=2 } }
+                if ((tabCC[2][0]=="o") && (tabCC[0][2]=="o") && (tabCC[1][1]=="_")) { if boxAvailable() == true {posX=1; posY=1 } }
+                if ((tabCC[1][1]=="o") && (tabCC[0][2]=="o") && (tabCC[2][0]=="_")) { if boxAvailable() == true {posX=2; posY=0 } }
+                
+                let selectedBox : UIImageView
+                selectedBox = boxNumber()
+                selectedBox.image = #imageLiteral(resourceName: "circle.png")
+                lastValue = "o"
                 tabCC[posX][posY] = lastValue
                 checkInc = checkInc + 1
                 
@@ -173,10 +177,10 @@ class GameViewController: UIViewController {
                 
                 if checkIfWin(PC: lastValue) == true {
                     computerScoreLbl.text = String((Int(computerScoreLbl.text ?? "0") ?? 0) + 1)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
-                    {
+                    //DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+                    //{
                         self.resetGame()
-                    }
+                    //}
                     return
                 }
                 
@@ -185,27 +189,13 @@ class GameViewController: UIViewController {
                 self.resetGame()
             }
         
-        
     }
-    /*func makeChoice(_ selectedBox:UIImageView) {
-        guard selectedBox.image == nil else { return }
-        
-        if lastValue == "x" {
-            selectedBox.image = #imageLiteral(resourceName: "circle")
-            lastValue = "o"
-        }else {
-            selectedBox.image = #imageLiteral(resourceName: "cross")
-            lastValue = "x"
-        }
-   
+ 
     
-    }*/
-    
-    func computerThink() /*-> (posX:Int, posY:Int)*/{
+    func computerThink() {
         repeat {
             posX = Int.random(in: 0 ..< 3)
             posY = Int.random(in: 0 ..< 3)
-            
         } while !(boxAvailable()==true)
         
         if ((tabCC[0][0]=="x") && (tabCC[1][0]=="x")) { if boxAvailable() == true {posX=2; posY=0 } }
@@ -240,20 +230,11 @@ class GameViewController: UIViewController {
         if ((tabCC[2][0]=="x") && (tabCC[0][2]=="x")) { if boxAvailable() == true {posX=1; posY=1 } }
         if ((tabCC[1][1]=="x") && (tabCC[0][2]=="x")) { if boxAvailable() == true {posX=2; posY=0 } }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //return (posX, posY)
     }
     
     func boxNumber() -> UIImageView {
         var ret : UIImageView = Box1
+        
         if ((posX == 0) && (posY == 0)) {ret = Box1}
         if ((posX == 1) && (posY == 0)) {ret = Box2}
         if ((posX == 2) && (posY == 0)) {ret = Box3}
@@ -264,7 +245,6 @@ class GameViewController: UIViewController {
         if ((posX == 1) && (posY == 2)) {ret = Box8}
         if ((posX == 2) && (posY == 2)) {ret = Box9}
         
-        
         return ret
     }
     
@@ -274,30 +254,6 @@ class GameViewController: UIViewController {
         if tabCC[posX][posY] == "_" { return true} else { return false}
         
     }
-    
-    //func computerPlay() {
-        
-        /*var availableSpace = [UIImageView]()
-        var availableBoxes = [Box]()
-        for name in Box.allCases {
-            let box = getBox(from: name.rawValue)
-            if box.image == nil {
-                
-                availableSpace.append(box)
-                availableBoxes.append(name)
-            }
-            
-        }
-        
-        guard availableBoxes.count > 0 else { return }
-        
-         let randIndex = Int.random(in: 0 ..< availableSpace.count)
-        makeChoice(availableSpace[randIndex])
-        computerChoice.append(availableBoxes[randIndex])*/
-
-   // }
-    
-    
     
     func checkIfWin(PC:String) -> Bool{
         var winGame : Bool = false
@@ -310,58 +266,7 @@ class GameViewController: UIViewController {
         if ((tabCC[2][0] == PC) && (tabCC[2][1] == PC) && (tabCC[2][2] == PC)) { winGame=true}
         if ((tabCC[0][0] == PC) && (tabCC[1][1] == PC) && (tabCC[2][2] == PC)) { winGame=true}
         if ((tabCC[2][0] == PC) && (tabCC[1][1] == PC) && (tabCC[0][2] == PC)) { winGame=true}
-        /*var correct = [[Box]]()
-        let firstRow: [Box] = [.one, .two, .three]
-        let secondRow: [Box] = [.four, .five, .six]
-        let thirdRow: [Box] = [.seven, .eight, .nine]
-        
-        let firstCol: [Box] = [.one, .four, .seven]
-        let secondCol: [Box] = [.two, .five, .eight]
-        let thirdCol: [Box] = [.three, .six, .nine]
-        
-        let backwardSlash: [Box] = [.one, .five, .nine]
-        let forewardSlash: [Box] = [.three, .five, .seven]
-        
-        correct.append(firstRow)
-        correct.append(secondRow)
-        correct.append(thirdRow)
-        correct.append(firstCol)
-        correct.append(secondCol)
-        correct.append(thirdCol)
-        correct.append(backwardSlash)
-        correct.append(forewardSlash)
-        
-        for valid in correct {
-            let userMatch = playerChoice.filter {valid.contains($0)}.count
-            let computerMatch = computerChoice.filter {valid.contains($0)}.count
-
-            if userMatch == valid.count {
-                playerScoreLbL.text = String((Int(playerScoreLbL.text ?? "0") ?? 0) + 1)
-                endGame = 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
-                {
-                    self.resetGame()
-                }
-                break
-            } else if computerMatch == valid.count {
-                computerScoreLbl.text = String((Int(computerScoreLbl.text ?? "0") ?? 0) + 1)
-                endGame = 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
-                {
-                    self.resetGame()
-                }
-                break
-            } else if computerChoice.count + playerChoice.count == 9 {
-                endGame = 1
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
-                {
-                    self.resetGame()
-                }
-                break
-            }
-            
-        }*/
-        
+     
       return winGame
     }
     
@@ -372,10 +277,7 @@ class GameViewController: UIViewController {
             box.image = nil
         }
         lastValue = "o"
-        //playerChoice = []
-        //computerChoice = []
         tabCC = []
-        //endGame = 0
         activeBox = 0
         checkInc = 0
         posX = 0
@@ -393,81 +295,54 @@ class GameViewController: UIViewController {
             activeBox = 1
             posX = 0
             posY = 0
-            //return = Box1
         }
         if box == .two {
             self.activeBox = 2
             posX = 1
             posY = 0
-             //= Box2
         }
         if box == .three {
             self.activeBox = 3
             posX = 2
             posY = 0
-            //imageBox = Box3
         }
         if box == .four {
             self.activeBox = 4
             posX = 0
             posY = 1
-            //imageBox = Box4
         }
         if box == .five {
             self.activeBox = 5
             posX = 1
             posY = 1
-            //return Box5
         }
         if box == .six {
             self.activeBox = 6
             posX = 2
             posY = 1
-            //return Box6
         }
         if box == .seven {
             self.activeBox = 7
             posX = 0
             posY = 2
-            //return Box7
         }
         if box == .eight {
             self.activeBox = 8
             posX = 1
             posY = 2
-            //return Box8
         }
         if box == .nine {
             self.activeBox = 9
             posX = 2
             posY = 2
-            //return Box9
         }
-        
-        
+    
     return imageBox[activeBox-1]
-        //switch box {
-            
-        //case .one:
-            
-        //case .two: return Box2
-        //case .three: return Box3
-        //case .four: return Box4
-        //case .five: return Box5
-        //case .six: return Box6
-        //case .seven: return Box7
-        //case .eight: return Box8
-        //case .nine: return Box9
-        //}
-               
     }
     
     @IBAction func closeBtnClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-    
-    
-
 }
 
 enum Box: String, CaseIterable {

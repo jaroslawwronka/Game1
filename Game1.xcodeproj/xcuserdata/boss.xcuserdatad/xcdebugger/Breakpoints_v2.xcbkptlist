@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1E5BBE3F-EF0E-44F9-9177-02B766E9BBDE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Game1/GameViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "resetGame()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1E5BBE3F-EF0E-44F9-9177-02B766E9BBDE - 6ed5b2177a6971cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Game1.GameViewController.checkIfWin() -&gt; ()"
-                  moduleName = "Game1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boss/Desktop/APPS/Game1/Game1/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "1520">
-               </Location>
-               <Location
-                  uuid = "1E5BBE3F-EF0E-44F9-9177-02B766E9BBDE - e14374977a61d276"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Game1.Box) -&gt; Swift.Bool in Game1.GameViewController.checkIfWin() -&gt; ()"
-                  moduleName = "Game1"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boss/Desktop/APPS/Game1/Game1/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "35">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5C375504-8089-4A14-B556-4A50C93F36FE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -62,25 +14,9 @@
             filePath = "Game1/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "createTap(on:type:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "570EE5A4-66DF-463C-B7F9-F51979E10137"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Game1/GameViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "boxClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
