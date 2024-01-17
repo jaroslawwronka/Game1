@@ -116,6 +116,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hv-Zd-4eL">
                                 <rect key="frame" x="43.666666666666657" y="268" width="306" height="306"/>
                                 <subviews>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4h-n0-ZJD">
+                                        <rect key="frame" x="0.0" y="0.0" width="306" height="306"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="306" id="dUz-Ir-0ws"/>
+                                            <constraint firstAttribute="height" constant="306" id="zCC-bQ-VsN"/>
+                                        </constraints>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OW6-gF-YgJ">
                                         <rect key="frame" x="0.0" y="0.0" width="306" height="306"/>
                                         <subviews>
@@ -270,8 +279,10 @@
                                     <constraint firstAttribute="width" constant="306" id="F2Y-Gt-YVu"/>
                                     <constraint firstAttribute="height" constant="306" id="RqK-5B-SYx"/>
                                     <constraint firstAttribute="bottom" secondItem="OW6-gF-YgJ" secondAttribute="bottom" id="Ru2-mF-SHX"/>
+                                    <constraint firstItem="T4h-n0-ZJD" firstAttribute="centerX" secondItem="8hv-Zd-4eL" secondAttribute="centerX" id="SvJ-a8-oCR"/>
                                     <constraint firstItem="OW6-gF-YgJ" firstAttribute="top" secondItem="8hv-Zd-4eL" secondAttribute="top" id="bru-Hx-xvg"/>
                                     <constraint firstItem="OW6-gF-YgJ" firstAttribute="leading" secondItem="8hv-Zd-4eL" secondAttribute="leading" id="csi-ja-Exl"/>
+                                    <constraint firstItem="T4h-n0-ZJD" firstAttribute="centerY" secondItem="8hv-Zd-4eL" secondAttribute="centerY" id="kxL-AZ-V9K"/>
                                     <constraint firstAttribute="trailing" secondItem="OW6-gF-YgJ" secondAttribute="trailing" id="mx0-M5-cg5"/>
                                 </constraints>
                             </view>
@@ -386,6 +397,7 @@
                         <outlet property="Box7" destination="T3m-38-oC0" id="ydP-bH-d5y"/>
                         <outlet property="Box8" destination="MxJ-o2-FRh" id="dQn-vt-4W7"/>
                         <outlet property="Box9" destination="LW1-PI-zNf" id="6Ez-Sa-BMd"/>
+                        <outlet property="Line" destination="T4h-n0-ZJD" id="tLH-yy-tk4"/>
                         <outlet property="box1" destination="Ncy-sh-bLd" id="KPW-8x-Xne"/>
                         <outlet property="computerScoreLbl" destination="6qV-H7-mMd" id="Hfu-gP-uxv"/>
                         <outlet property="playerNameLbl" destination="Gcp-uH-046" id="MxD-pm-j6G"/>

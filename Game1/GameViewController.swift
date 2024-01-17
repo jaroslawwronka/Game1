@@ -9,6 +9,15 @@ import UIKit
 
 class GameViewController: UIViewController {
 
+    var winLine1 : twinLine1!
+    var winLine2 : twinLine2!
+    var winLine3 : twinLine3!
+    var winLine4 : twinLine4!
+    var winLine5 : twinLine5!
+    var winLine6 : twinLine6!
+    var winLine7 : twinLine7!
+    var winLine8 : twinLine8!
+    
     @IBOutlet weak var playerNameLbl: UILabel!
     @IBOutlet weak var playerScoreLbL: UILabel!
     @IBOutlet weak var computerScoreLbl: UILabel!
@@ -21,6 +30,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var Box7: UIImageView!
     @IBOutlet weak var Box8: UIImageView!
     @IBOutlet weak var Box9: UIImageView!
+    @IBOutlet weak var Line: UIView!
     
     var playerName : String = ""
     var lastValue = "o"
@@ -30,6 +40,7 @@ class GameViewController: UIViewController {
     var randX : Int = 0
     var randY : Int = 0
     var activeBox : Int = 0
+    var checkWin : Int = 0
     var checkInc : Int = 0
    
     override func viewDidLoad() {
@@ -46,7 +57,41 @@ class GameViewController: UIViewController {
         createTap(on: Box7, type: .seven)
         createTap(on: Box8, type: .eight)
         createTap(on: Box9, type: .nine)
-
+        Line.isOpaque = false
+        
+        winLine1 = twinLine1(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine1.draw(_:Line.frame)
+        Line.addSubview(winLine1)
+        
+        winLine2 = twinLine2(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine2.draw(_:Line.frame)
+        Line.addSubview(winLine2)
+        
+        winLine3 = twinLine3(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine3.draw(_:Line.frame)
+        Line.addSubview(winLine3)
+        
+        winLine4 = twinLine4(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine4.draw(_:Line.frame)
+        Line.addSubview(winLine4)
+        
+        winLine5 = twinLine5(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine5.draw(_:Line.frame)
+        Line.addSubview(winLine5)
+        
+        winLine6 = twinLine6(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine6.draw(_:Line.frame)
+        Line.addSubview(winLine6)
+        
+        winLine7 = twinLine7(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine7.draw(_:Line.frame)
+        Line.addSubview(winLine7)
+        
+        winLine8 = twinLine8(frame: CGRect(x: Line.frame.minX,y : Line.frame.minY, width: Line.frame.width, height: Line.frame.height))
+        winLine8.draw(_:Line.frame)
+        
+        Line.subviews.forEach { $0.isHidden = true }
+        
     }
     
     func createTap(on imageView:UIImageView, type box: Box){
@@ -61,18 +106,18 @@ class GameViewController: UIViewController {
     
     @objc func boxClicked(_ sender: UITapGestureRecognizer) {
         
-        if ((checkInc <= 8)) {
-            //isTaped = true
+        if ((checkInc <= 8) && (checkWin == 0)) {
+
             let selectedBox = getBox(from: sender.name ?? "")
             if boxAvailable() == true {
                 selectedBox.image = #imageLiteral(resourceName: "cross")
                 lastValue = "x"
                 tabCC[posX][posY] = lastValue
                 checkInc = checkInc + 1
-                print(tabCC[0][0] + " " + tabCC[1][0] + " " + tabCC[2][0])
-                print(tabCC[0][1] + " " + tabCC[1][1] + " " + tabCC[2][1])
-                print(tabCC[0][2] + " " + tabCC[1][2] + " " + tabCC[2][2])
-                print("*")
+                //print(tabCC[0][0] + " " + tabCC[1][0] + " " + tabCC[2][0])
+                //print(tabCC[0][1] + " " + tabCC[1][1] + " " + tabCC[2][1])
+                //print(tabCC[0][2] + " " + tabCC[1][2] + " " + tabCC[2][2])
+                //print("*")
                 if checkIfWin(PC: lastValue) == true {
                     playerScoreLbL.text = String((Int(playerScoreLbL.text ?? "0") ?? 0) + 1)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
@@ -88,7 +133,7 @@ class GameViewController: UIViewController {
         
     func computerPlay(){
         
-            if checkInc <= 8 {
+            if ((checkInc <= 8) && (checkWin == 0)) {
                 
                 //random position computer choice
                 repeat {
@@ -176,11 +221,10 @@ class GameViewController: UIViewController {
                 print("*")
                 
                 if checkIfWin(PC: lastValue) == true {
+                    
                     computerScoreLbl.text = String((Int(computerScoreLbl.text ?? "0") ?? 0) + 1)
-                    //DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
-                    //{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {}
                         self.resetGame()
-                    //}
                     return
                 }
                 
@@ -258,33 +302,191 @@ class GameViewController: UIViewController {
     func checkIfWin(PC:String) -> Bool{
         var winGame : Bool = false
         
-        if ((tabCC[0][0] == PC) && (tabCC[1][0] == PC) && (tabCC[2][0] == PC)) { winGame=true}
-        if ((tabCC[0][1] == PC) && (tabCC[1][1] == PC) && (tabCC[2][1] == PC)) { winGame=true}
-        if ((tabCC[0][2] == PC) && (tabCC[1][2] == PC) && (tabCC[2][2] == PC)) { winGame=true}
-        if ((tabCC[0][0] == PC) && (tabCC[0][1] == PC) && (tabCC[0][2] == PC)) { winGame=true}
-        if ((tabCC[1][0] == PC) && (tabCC[1][1] == PC) && (tabCC[1][2] == PC)) { winGame=true}
-        if ((tabCC[2][0] == PC) && (tabCC[2][1] == PC) && (tabCC[2][2] == PC)) { winGame=true}
-        if ((tabCC[0][0] == PC) && (tabCC[1][1] == PC) && (tabCC[2][2] == PC)) { winGame=true}
-        if ((tabCC[2][0] == PC) && (tabCC[1][1] == PC) && (tabCC[0][2] == PC)) { winGame=true}
-     
+        
+        if ((tabCC[0][0] == PC) && (tabCC[1][0] == PC) && (tabCC[2][0] == PC)) {
+            
+            winGame=true
+            Line.subviews[0].isHidden = false
+        }
+        if ((tabCC[0][1] == PC) && (tabCC[1][1] == PC) && (tabCC[2][1] == PC)) {
+            
+            winGame=true
+            Line.subviews[1].isHidden = false
+        }
+        if ((tabCC[0][2] == PC) && (tabCC[1][2] == PC) && (tabCC[2][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[2].isHidden = false
+        }
+        if ((tabCC[0][0] == PC) && (tabCC[0][1] == PC) && (tabCC[0][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[3].isHidden = false
+        }
+        if ((tabCC[1][0] == PC) && (tabCC[1][1] == PC) && (tabCC[1][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[4].isHidden = false
+        }
+        if ((tabCC[2][0] == PC) && (tabCC[2][1] == PC) && (tabCC[2][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[5].isHidden = false
+        }
+        if ((tabCC[0][0] == PC) && (tabCC[1][1] == PC) && (tabCC[2][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[6].isHidden = false
+            
+        }
+        if ((tabCC[2][0] == PC) && (tabCC[1][1] == PC) && (tabCC[0][2] == PC)) {
+            
+            winGame=true
+            Line.subviews[7].isHidden = false
+        }
+    
+        
+        
+        if winGame == true {
+            self.checkWin = 1
+        }
       return winGame
     }
     
-    func resetGame() {
+    class twinLine1: UIView {
         
-        for name in Box.allCases {
-            let box = getBox(from: name.rawValue)
-            box.image = nil
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setFillColor(UIColor.clear.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: 20, y: self.frame.size.height / 6 ))
+                context.addLine(to: CGPoint(x: self.frame.maxX - 20, y: self.frame.maxY / 6 ))
+                context.strokePath()
+            }
         }
-        lastValue = "o"
-        tabCC = []
-        activeBox = 0
-        checkInc = 0
-        posX = 0
-        posY = 0
-        randX = 0
-        randY = 0
-        tabCC = [["_","_","_"],["_","_","_"],["_","_","_"]]
+    }
+    
+    class twinLine2: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: 20, y: self.frame.maxY / 2))
+                context.addLine(to: CGPoint(x: self.frame.maxX - 20, y: self.frame.maxY / 2 ))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine3: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: 20, y: self.frame.maxY / 6 * 5))
+                context.addLine(to: CGPoint(x: self.frame.maxX - 20, y: self.frame.maxY / 6 * 5))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine4: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: self.frame.maxX / 6, y: 20))
+                context.addLine(to: CGPoint(x: self.frame.maxX / 6, y: self.frame.maxY - 20))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine5: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: self.frame.maxX / 2, y: 20))
+                context.addLine(to: CGPoint(x: self.frame.maxX / 2, y: self.frame.maxY - 20))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine6: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: self.frame.maxX / 6 * 5, y: 20))
+                context.addLine(to: CGPoint(x: self.frame.maxX / 6 * 5, y: self.frame.maxY - 20))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine7: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: 20, y: 20))
+                context.addLine(to: CGPoint(x: self.frame.maxX - 20, y: self.frame.maxY - 20))
+                context.strokePath()
+            }
+        }
+    }
+    
+    class twinLine8: UIView {
+        
+        override func draw(_ rect: CGRect) {
+            self.isOpaque = false
+            if let context = UIGraphicsGetCurrentContext() {
+                context.setStrokeColor(UIColor.darkGray.cgColor)
+                context.setLineWidth(4.0)
+                context.move(to: CGPoint(x: self.frame.maxX - 20, y: 20))
+                context.addLine(to: CGPoint(x: 20, y: self.frame.maxY - 20))
+                context.strokePath()
+            }
+        }
+    }
+    
+  
+    
+    func resetGame() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5)
+        {
+            for name in Box.allCases {
+                let box = self.getBox(from: name.rawValue)
+                box.image = nil
+            }
+            self.Line.subviews.forEach { $0.isHidden = true }
+            self.lastValue = "o"
+            self.tabCC = []
+            self.activeBox = 0
+            self.checkWin = 0
+            self.checkInc = 0
+            self.posX = 0
+            self.posY = 0
+            self.randX = 0
+            self.randY = 0
+            self.tabCC = [["_","_","_"],["_","_","_"],["_","_","_"]]
+        }
     }
     
     func getBox(from name:String) -> (UIImageView) {
