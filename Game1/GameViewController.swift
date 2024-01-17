@@ -42,7 +42,7 @@ class GameViewController: UIViewController {
     var activeBox : Int = 0
     var checkWin : Int = 0
     var checkInc : Int = 0
-   
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         
